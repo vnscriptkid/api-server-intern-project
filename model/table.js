@@ -21,7 +21,7 @@ Table.prototype.updateDataAndSort = function(){
 		this.sortArray();
 		this.updateGainers(10);
 		this.updateLosers(10);		
-	}, 1000);
+	}, 5000);
 }
 
 Table.prototype.updateGainers = function(topX){
