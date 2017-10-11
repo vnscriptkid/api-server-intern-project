@@ -8,19 +8,31 @@ function randomChar() {
   	return possible.charAt(Math.floor(Math.random() * possible.length));
 }
 
-function round2Fixed(value) {
-  value = +value;
+function roundNumber(num, scale) {
+  if (Math.round(num) != num) {
+    if (Math.pow(0.1, scale) > num) {
+      return 0;
+    }
+    var sign = Math.sign(num);
+    var arr = ("" + Math.abs(num)).split(".");
+    if (arr.length > 1) {
+      if (arr[1].length > scale) {
+        var integ = +arr[0] * Math.pow(10, scale);
+        var dec = integ + (+arr[1].slice(0, scale) + Math.pow(10, scale));
+        var proc = +arr[1].slice(scale, scale + 1)
+        if (proc >= 5) {
+          dec = dec + 1;
+        }
+        dec = sign * (dec - Math.pow(10, scale)) / Math.pow(10, scale);
+        return dec;
+      }
+    }
+  }
+  return num;
+}
 
-  if (isNaN(value))
-    return NaN;
-
-  // Shift
-  value = value.toString().split('e');
-  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + 2) : 2)));
-
-  // Shift back
-  value = value.toString().split('e');
-  return (+(value[0] + 'e' + (value[1] ? (+value[1] - 2) : -2))).toFixed(2);
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
 }
 
 function randomCode() {
@@ -40,7 +52,7 @@ function randomCode() {
 }
 
 function randomPrice(low, high) {	
-    return round2Fixed(Math.random() * (high - low) + low);
+    return +(Math.random() * (high - low) + low).toFixed(2);
 }
 
 function randomPriceChangePercent() {
@@ -58,7 +70,7 @@ module.exports = {
 	randomCommon,
 	randomCode,
 	randomPrice,
-	round2Fixed
+	roundNumber
 }
 
 module.exports.companies = companies;

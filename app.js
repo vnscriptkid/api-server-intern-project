@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 
-myTable.updateDataAndSort();
+myTable.setClock();
 
 app.get('/api/top-gainers', function(req, res){
 	res.send(myTable.gainers);

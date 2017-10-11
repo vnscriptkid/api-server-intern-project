@@ -16,7 +16,5 @@ for (let i = 0; i < 30; i++){
 
 var myTable = new Table(stockList);
 
-// console.log(JSON.stringify(stockList, undefined, 2));
-
 module.exports = myTable;
 
